@@ -842,6 +842,85 @@
             cursor: not-allowed;
         }
         
+        /* Enhanced Google Button */
+        .google-btn {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .google-btn:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Enhanced Phone Verification */
+        .phone-verification-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .otp-inputs input {
+            width: 40px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        
+        .otp-inputs input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.2);
+        }
+        
+        .verification-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .verification-status.success {
+            color: var(--success);
+        }
+        
+        .verification-status.error {
+            color: var(--accent);
+        }
+        
+        .verification-status i {
+            font-size: 1.2rem;
+        }
+        
         @media (max-width: 768px) {
             .progress-bar {
                 flex-direction: column;
@@ -914,6 +993,16 @@
             
             .country-code {
                 width: 100%;
+            }
+            
+            .otp-inputs {
+                gap: 5px;
+            }
+            
+            .otp-inputs input {
+                width: 35px;
+                height: 45px;
+                font-size: 1.2rem;
             }
         }
         
@@ -1027,6 +1116,20 @@
                 opacity: 0;
             }
         }
+        
+        /* Image enhancements */
+        .visual-enhancement {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .enhancement-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
     </style>
 </head>
 <body>
@@ -1087,8 +1190,9 @@
                     <span>OR</span>
                 </div>
                 
-                <button class="auth-btn btn-secondary" id="googleLoginBtn">
-                    <i class="fab fa-google"></i> Sign in with Google
+                <button class="auth-btn google-btn" id="googleLoginBtn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
+                    Sign in with Google
                 </button>
                 
                 <div class="auth-footer">
@@ -1132,8 +1236,9 @@
                     <span>OR</span>
                 </div>
                 
-                <button class="auth-btn btn-secondary" id="googleRegisterBtn">
-                    <i class="fab fa-google"></i> Sign up with Google
+                <button class="auth-btn google-btn" id="googleRegisterBtn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
+                    Sign up with Google
                 </button>
                 
                 <div class="auth-footer">
@@ -1146,11 +1251,25 @@
                 <h3 style="margin-bottom: 20px;">Verify Your Phone</h3>
                 <p style="margin-bottom: 20px; color: var(--text-secondary);" id="phoneVerificationText">We've sent a verification code to your phone</p>
                 
-                <div class="auth-form">
-                    <input type="text" class="auth-input otp-input" id="otpCode" placeholder="Enter 6-digit code" maxlength="6" required>
+                <div class="phone-verification-container">
+                    <div class="otp-inputs" id="otpInputs">
+                        <input type="text" maxlength="1" class="otp-digit">
+                        <input type="text" maxlength="1" class="otp-digit">
+                        <input type="text" maxlength="1" class="otp-digit">
+                        <input type="text" maxlength="1" class="otp-digit">
+                        <input type="text" maxlength="1" class="otp-digit">
+                        <input type="text" maxlength="1" class="otp-digit">
+                    </div>
+                    
+                    <div class="verification-status" id="verificationStatus" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified successfully!</span>
+                    </div>
+                    
                     <button class="auth-btn" id="verifyOtpBtn">
                         <i class="fas fa-check-circle"></i> Verify Code
                     </button>
+                    
                     <button class="resend-otp" id="resendOtpBtn">
                         Resend Code
                     </button>
@@ -1215,6 +1334,12 @@
                 <!-- Section 1: Basic Information -->
                 <div class="form-section active" id="section1">
                     <h2><i class="fas fa-info-circle"></i> Project Specification</h2>
+                    
+                    <div class="visual-enhancement">
+                        <div style="width: 100%; height: 200px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
+                            PROJECT SPECIFICATION FORM
+                        </div>
+                    </div>
                     
                     <div class="form-row">
                         <div class="form-col">
@@ -1388,6 +1513,12 @@
                         <i class="fas fa-info-circle"></i> Only fill for Free standings
                     </div>
                     
+                    <div class="visual-enhancement">
+                        <div style="width: 100%; height: 150px; background: var(--gradient-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
+                            FREE STANDING ENCLOSURES
+                        </div>
+                    </div>
+                    
                     <div class="card">
                         <div class="card-title"><i class="fas fa-cube"></i> Component Thickness Specifications</div>
                         <div class="form-row">
@@ -1488,6 +1619,12 @@
                     <h2><i class="fas fa-th-large"></i> Enclosure Sizes (Door, Frame, Back)</h2>
                     <div class="section-description">
                         <i class="fas fa-info-circle"></i> Only fill for Wall Mount Enclosures
+                    </div>
+                    
+                    <div class="visual-enhancement">
+                        <div style="width: 100%; height: 150px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
+                            WALL MOUNT ENCLOSURES
+                        </div>
                     </div>
                     
                     <div class="card">
@@ -1611,6 +1748,12 @@
                 <!-- Section 4: Finishing -->
                 <div class="form-section" id="section4">
                     <h2><i class="fas fa-paint-roller"></i> Finishing Details</h2>
+                    
+                    <div class="visual-enhancement">
+                        <div style="width: 100%; height: 150px; background: var(--gradient-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
+                            FINISHING DETAILS
+                        </div>
+                    </div>
                     
                     <div class="card">
                         <div class="card-title"><i class="fas fa-spray-can"></i> PAINTING</div>
@@ -1938,6 +2081,44 @@
             }
         }
 
+        // Enhanced OTP input handling
+        function setupOtpInputs() {
+            const otpInputs = document.querySelectorAll('.otp-digit');
+            
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    // Move to next input if current input has value
+                    if (e.target.value && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    // Handle backspace
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+                
+                // Allow only numbers
+                input.addEventListener('keypress', (e) => {
+                    if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        }
+
+        // Get OTP code from inputs
+        function getOtpCode() {
+            const otpInputs = document.querySelectorAll('.otp-digit');
+            let code = '';
+            otpInputs.forEach(input => {
+                code += input.value;
+            });
+            return code;
+        }
+
         // Authentication functions
         function showAuth() {
             document.getElementById('authContainer').style.display = 'flex';
@@ -1982,11 +2163,17 @@
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('phoneVerification').style.display = 'block';
             clearAuthMessages();
+            setupOtpInputs();
         }
 
         function clearAuthMessages() {
             document.getElementById('authError').style.display = 'none';
             document.getElementById('authSuccess').style.display = 'none';
+            
+            // Clear verification status
+            const verificationStatus = document.getElementById('verificationStatus');
+            verificationStatus.style.display = 'none';
+            verificationStatus.className = 'verification-status';
         }
 
         function showAuthError(message) {
@@ -2044,16 +2231,22 @@
             // For demo purposes - in production, you would use Firebase Phone Auth
             // This is a simulation since Firebase Phone Auth requires additional setup
             showAuthSuccess('OTP sent to your phone');
-            document.getElementById('phoneVerificationText').textContent = 'We\'ve sent a verification code to your phone';
+            document.getElementById('phoneVerificationText').textContent = `We've sent a verification code to ${currentPhoneNumber}`;
             showPhoneVerification();
             startPhoneAuthTimer();
             
-            // Clear the OTP field for security
-            document.getElementById('otpCode').value = '';
+            // Clear the OTP inputs for security
+            const otpInputs = document.querySelectorAll('.otp-digit');
+            otpInputs.forEach(input => input.value = '');
+            
+            // Focus first OTP input
+            if (otpInputs.length > 0) {
+                otpInputs[0].focus();
+            }
         }
 
         function verifyOtp() {
-            const otpCode = document.getElementById('otpCode').value;
+            const otpCode = getOtpCode();
             
             if (!otpCode || otpCode.length !== 6) {
                 showAuthError('Please enter a valid 6-digit code');
@@ -2062,7 +2255,10 @@
             
             // For demo purposes - simulate successful verification
             // In a real app, this would be verified against Firebase
-            showAuthSuccess('Phone verified successfully!');
+            const verificationStatus = document.getElementById('verificationStatus');
+            verificationStatus.className = 'verification-status success';
+            verificationStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Verified successfully!</span>';
+            verificationStatus.style.display = 'flex';
             
             // Create a mock user for demo
             const mockUser = {

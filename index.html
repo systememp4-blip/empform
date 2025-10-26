@@ -999,6 +999,27 @@
             display: flex;
             justify-content: center;
         }
+        
+        /* Phone auth status */
+        .phone-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .phone-status.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .phone-status.error {
+            background: rgba(229, 57, 53, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -1076,13 +1097,14 @@
             <div class="auth-form" id="phoneAuthForm">
                 <div class="form-group">
                     <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" placeholder="Enter your phone number">
+                    <input type="tel" id="phoneNumber" placeholder="+1234567890" value="+1">
                 </div>
                 <div id="recaptcha-container"></div>
                 <button class="btn" id="sendCodeBtn">Send Verification Code</button>
+                <div class="phone-status" id="phoneStatus" style="display: none;"></div>
                 <div class="form-group" id="codeVerificationGroup" style="display: none;">
                     <label for="verificationCode">Verification Code</label>
-                    <input type="text" id="verificationCode" placeholder="Enter verification code">
+                    <input type="text" id="verificationCode" placeholder="Enter 6-digit code">
                 </div>
                 <button class="btn" id="verifyCodeBtn" style="display: none;">Verify Code</button>
                 <div class="auth-switch">
@@ -1093,6 +1115,7 @@
         
         <!-- Project Specification Form (Initially Hidden) -->
         <div class="form-container" id="formContainer" style="display: none;">
+            <!-- Your existing form sections remain exactly the same -->
             <div class="progress-bar" id="progressBar">
                 <div class="progress-step active" data-step="1">
                     <div class="step-number">1</div>
@@ -1870,6 +1893,20 @@
             document.getElementById('emailAuthForm').classList.remove('active');
             document.getElementById('phoneAuthForm').classList.remove('active');
             document.getElementById('authMethods').style.display = 'flex';
+            
+            // Clear phone auth form
+            document.getElementById('phoneNumber').value = '+1';
+            document.getElementById('verificationCode').value = '';
+            document.getElementById('codeVerificationGroup').style.display = 'none';
+            document.getElementById('verifyCodeBtn').style.display = 'none';
+            document.getElementById('sendCodeBtn').style.display = 'block';
+            document.getElementById('phoneStatus').style.display = 'none';
+            
+            // Clear reCAPTCHA
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear();
+                window.recaptchaVerifier = null;
+            }
         }
 
         // Google Sign In
@@ -1945,17 +1982,26 @@
             document.getElementById('phoneAuthForm').classList.add('active');
             
             // Initialize reCAPTCHA verifier
-            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                'size': 'normal',
-                'callback': (response) => {
-                    // reCAPTCHA solved, allow sendCodeBtn
-                    document.getElementById('sendCodeBtn').disabled = false;
-                }
-            });
-            
-            window.recaptchaVerifier.render().then((widgetId) => {
-                window.recaptchaWidgetId = widgetId;
-            });
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                    'size': 'normal',
+                    'callback': (response) => {
+                        // reCAPTCHA solved, allow sendCodeBtn
+                        document.getElementById('sendCodeBtn').disabled = false;
+                    },
+                    'expired-callback': () => {
+                        // Reset when reCAPTCHA response expires
+                        document.getElementById('sendCodeBtn').disabled = true;
+                    }
+                });
+                
+                window.recaptchaVerifier.render().then((widgetId) => {
+                    window.recaptchaWidgetId = widgetId;
+                }).catch((error) => {
+                    console.error('reCAPTCHA render error', error);
+                    showPhoneStatus('Error loading reCAPTCHA. Please refresh the page.', 'error');
+                });
+            }
         });
 
         // Send Verification Code
@@ -1964,6 +2010,12 @@
             
             if (!phoneNumber) {
                 alert('Please enter your phone number');
+                return;
+            }
+            
+            // Validate phone number format
+            if (!phoneNumber.startsWith('+')) {
+                alert('Please enter phone number with country code (e.g., +1234567890)');
                 return;
             }
             
@@ -1976,16 +2028,52 @@
                     document.getElementById('codeVerificationGroup').style.display = 'block';
                     document.getElementById('verifyCodeBtn').style.display = 'block';
                     document.getElementById('sendCodeBtn').style.display = 'none';
+                    showPhoneStatus('Verification code sent to your phone!', 'success');
                 })
                 .catch((error) => {
                     console.error('SMS send error', error);
-                    alert('Error sending SMS: ' + error.message);
+                    let errorMessage = 'Error sending SMS: ';
+                    
+                    switch (error.code) {
+                        case 'auth/invalid-phone-number':
+                            errorMessage += 'Invalid phone number format';
+                            break;
+                        case 'auth/quota-exceeded':
+                            errorMessage += 'SMS quota exceeded. Please try again later';
+                            break;
+                        case 'auth/user-disabled':
+                            errorMessage += 'This account has been disabled';
+                            break;
+                        default:
+                            errorMessage += error.message;
+                    }
+                    
+                    showPhoneStatus(errorMessage, 'error');
+                    
                     // Reset reCAPTCHA
-                    window.recaptchaVerifier.render().then((widgetId) => {
-                        window.recaptchaWidgetId = widgetId;
-                    });
+                    if (window.recaptchaVerifier) {
+                        window.recaptchaVerifier.clear();
+                        window.recaptchaVerifier.render().then((widgetId) => {
+                            window.recaptchaWidgetId = widgetId;
+                        });
+                    }
                 });
         });
+
+        // Show phone status message
+        function showPhoneStatus(message, type) {
+            const statusElement = document.getElementById('phoneStatus');
+            statusElement.textContent = message;
+            statusElement.className = `phone-status ${type}`;
+            statusElement.style.display = 'block';
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 5000);
+            }
+        }
 
         // Verify Code
         document.getElementById('verifyCodeBtn').addEventListener('click', () => {
@@ -1996,14 +2084,33 @@
                 return;
             }
             
+            if (code.length !== 6 || !/^\d+$/.test(code)) {
+                alert('Please enter a valid 6-digit verification code');
+                return;
+            }
+            
             window.confirmationResult.confirm(code)
                 .then((result) => {
                     // User signed in successfully
+                    showPhoneStatus('Phone number verified successfully!', 'success');
                     console.log('Phone sign in successful', result.user);
                 })
                 .catch((error) => {
                     console.error('Code verification error', error);
-                    alert('Error verifying code: ' + error.message);
+                    let errorMessage = 'Error verifying code: ';
+                    
+                    switch (error.code) {
+                        case 'auth/invalid-verification-code':
+                            errorMessage += 'Invalid verification code';
+                            break;
+                        case 'auth/code-expired':
+                            errorMessage += 'Verification code expired. Please request a new one';
+                            break;
+                        default:
+                            errorMessage += error.message;
+                    }
+                    
+                    showPhoneStatus(errorMessage, 'error');
                 });
         });
 

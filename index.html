@@ -182,15 +182,183 @@
             letter-spacing: 0.5px;
         }
         
+        .auth-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 35px var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 1s ease-out;
+            text-align: center;
+        }
+        
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        .auth-title {
+            color: var(--text);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .auth-title i {
+            color: var(--accent);
+        }
+        
+        .auth-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .auth-btn {
+            padding: 14px 28px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .auth-btn:hover::before {
+            left: 100%;
+        }
+        
+        .auth-btn:hover {
+            background: var(--gradient-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 57, 53, 0.4);
+        }
+        
+        .auth-btn:active {
+            transform: translateY(0);
+        }
+        
+        .auth-btn-google {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+        }
+        
+        .auth-btn-google:hover {
+            background: linear-gradient(135deg, #5a95f5 0%, #4cbb6a 100%);
+        }
+        
+        .auth-btn-phone {
+            background: linear-gradient(135deg, #FF6D00 0%, #FF5722 100%);
+        }
+        
+        .auth-btn-phone:hover {
+            background: linear-gradient(135deg, #ff8124 0%, #ff7043 100%);
+        }
+        
+        .auth-form {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.2);
+        }
+        
+        .auth-form .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .auth-switch {
+            margin-top: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .auth-switch a {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+        
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            background: var(--secondary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
         
         .user-avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient);
             display: flex;
@@ -198,23 +366,35 @@
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 1.2rem;
         }
         
         .user-details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            flex: 1;
         }
         
         .user-name {
             font-weight: 600;
-            font-size: 1rem;
         }
         
         .user-email {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+        }
+        
+        .logout-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
         }
         
         .form-container {
@@ -380,7 +560,6 @@
         }
         
         input[type="text"], 
-        input[type="tel"],
         textarea,
         select {
             width: 100%;
@@ -394,7 +573,6 @@
         }
         
         input[type="text"]:focus, 
-        input[type="tel"]:focus,
         textarea:focus,
         select:focus {
             outline: none;
@@ -638,289 +816,6 @@
             transform: translateY(0);
         }
         
-        /* Authentication Styles */
-        .auth-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .auth-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-        
-        .auth-logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gradient);
-            border-radius: 12px;
-            padding: 10px;
-            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .auth-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-        
-        .auth-title {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            background: var(--gradient-light);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .auth-subtitle {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-        
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .auth-input {
-            padding: 14px 16px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .auth-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.2);
-        }
-        
-        .auth-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .auth-btn:hover {
-            background: var(--gradient-light);
-            transform: translateY(-2px);
-        }
-        
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: var(--text-secondary);
-        }
-        
-        .auth-divider::before,
-        .auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-        
-        .auth-divider span {
-            padding: 0 15px;
-        }
-        
-        .auth-footer {
-            margin-top: 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .auth-footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .auth-footer a:hover {
-            text-decoration: underline;
-        }
-        
-        .auth-error {
-            color: var(--accent);
-            background: rgba(229, 57, 53, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        
-        .auth-success {
-            color: var(--success);
-            background: rgba(76, 175, 80, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        
-        .phone-input-container {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .country-code {
-            width: 80px;
-            flex-shrink: 0;
-        }
-        
-        .phone-number {
-            flex: 1;
-        }
-        
-        .otp-container {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .otp-input {
-            text-align: center;
-            font-size: 1.2rem;
-            letter-spacing: 8px;
-            font-weight: bold;
-        }
-        
-        .resend-otp {
-            background: none;
-            border: none;
-            color: var(--accent);
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
-        .resend-otp:hover {
-            text-decoration: underline;
-        }
-        
-        .resend-otp:disabled {
-            color: var(--text-secondary);
-            cursor: not-allowed;
-        }
-        
-        /* Enhanced Google Button */
-        .google-btn {
-            background: white;
-            color: #333;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .google-btn:hover {
-            background: #f5f5f5;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .google-btn img {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* Enhanced Phone Verification */
-        .phone-verification-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .otp-inputs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .otp-inputs input {
-            width: 40px;
-            height: 50px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--input-bg);
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-        
-        .otp-inputs input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.2);
-        }
-        
-        .verification-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .verification-status.success {
-            color: var(--success);
-        }
-        
-        .verification-status.error {
-            color: var(--accent);
-        }
-        
-        .verification-status i {
-            font-size: 1.2rem;
-        }
-        
         @media (max-width: 768px) {
             .progress-bar {
                 flex-direction: column;
@@ -977,32 +872,13 @@
                 font-size: 1.8rem;
             }
             
-            .auth-card {
-                padding: 30px 20px;
+            .auth-methods {
+                flex-direction: column;
             }
             
             .user-info {
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
-            }
-            
-            .phone-input-container {
-                flex-direction: column;
-            }
-            
-            .country-code {
-                width: 100%;
-            }
-            
-            .otp-inputs {
-                gap: 5px;
-            }
-            
-            .otp-inputs input {
-                width: 35px;
-                height: 45px;
-                font-size: 1.2rem;
             }
         }
         
@@ -1117,18 +993,11 @@
             }
         }
         
-        /* Image enhancements */
-        .visual-enhancement {
+        /* Recaptcha container */
+        #recaptcha-container {
+            margin: 20px 0;
             display: flex;
             justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .enhancement-image {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
         }
     </style>
 </head>
@@ -1141,176 +1010,89 @@
     <!-- Floating particles -->
     <div class="particles-container" id="particlesContainer"></div>
     
-    <!-- Authentication Container -->
-    <div class="auth-container" id="authContainer">
-        <div class="auth-card">
-            <div class="auth-logo">
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
-                    EMP
-                </div>
-            </div>
-            <h2 class="auth-title">Electro Metal Pressing</h2>
-            <p class="auth-subtitle">Project Specification Form</p>
-            
-            <div class="auth-error" id="authError"></div>
-            <div class="auth-success" id="authSuccess"></div>
-            
-            <!-- Login Form -->
-            <div id="loginForm">
-                <div class="auth-form">
-                    <input type="email" class="auth-input" id="loginEmail" placeholder="Email Address" required>
-                    <input type="password" class="auth-input" id="loginPassword" placeholder="Password" required>
-                    <button class="auth-btn" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> Sign In
-                    </button>
-                </div>
-                
-                <div class="auth-divider">
-                    <span>OR</span>
-                </div>
-                
-                <div class="auth-form">
-                    <div class="phone-input-container">
-                        <select class="auth-input country-code" id="countryCode">
-                            <option value="+1">+1 (US)</option>
-                            <option value="+44">+44 (UK)</option>
-                            <option value="+91">+91 (IN)</option>
-                            <option value="+94" selected>+94 (LK)</option>
-                            <option value="+61">+61 (AU)</option>
-                            <option value="+49">+49 (DE)</option>
-                        </select>
-                        <input type="tel" class="auth-input phone-number" id="phoneNumber" placeholder="Phone Number" required>
-                    </div>
-                    <button class="auth-btn" id="phoneLoginBtn">
-                        <i class="fas fa-mobile-alt"></i> Sign in with Phone
-                    </button>
-                </div>
-                
-                <div class="auth-divider">
-                    <span>OR</span>
-                </div>
-                
-                <button class="auth-btn google-btn" id="googleLoginBtn">
-                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
-                    Sign in with Google
-                </button>
-                
-                <div class="auth-footer">
-                    Don't have an account? <a href="#" id="showRegister">Sign up</a>
-                </div>
-            </div>
-            
-            <!-- Register Form -->
-            <div id="registerForm" style="display: none;">
-                <div class="auth-form">
-                    <input type="text" class="auth-input" id="registerName" placeholder="Full Name" required>
-                    <input type="email" class="auth-input" id="registerEmail" placeholder="Email Address" required>
-                    <input type="password" class="auth-input" id="registerPassword" placeholder="Password" required>
-                    <button class="auth-btn" id="registerBtn">
-                        <i class="fas fa-user-plus"></i> Create Account
-                    </button>
-                </div>
-                
-                <div class="auth-divider">
-                    <span>OR</span>
-                </div>
-                
-                <div class="auth-form">
-                    <div class="phone-input-container">
-                        <select class="auth-input country-code" id="registerCountryCode">
-                            <option value="+1">+1 (US)</option>
-                            <option value="+44">+44 (UK)</option>
-                            <option value="+91">+91 (IN)</option>
-                            <option value="+94" selected>+94 (LK)</option>
-                            <option value="+61">+61 (AU)</option>
-                            <option value="+49">+49 (DE)</option>
-                        </select>
-                        <input type="tel" class="auth-input phone-number" id="registerPhoneNumber" placeholder="Phone Number" required>
-                    </div>
-                    <button class="auth-btn" id="phoneRegisterBtn">
-                        <i class="fas fa-mobile-alt"></i> Sign up with Phone
-                    </button>
-                </div>
-                
-                <div class="auth-divider">
-                    <span>OR</span>
-                </div>
-                
-                <button class="auth-btn google-btn" id="googleRegisterBtn">
-                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
-                    Sign up with Google
-                </button>
-                
-                <div class="auth-footer">
-                    Already have an account? <a href="#" id="showLogin">Sign in</a>
-                </div>
-            </div>
-            
-            <!-- Phone OTP Verification -->
-            <div id="phoneVerification" style="display: none;">
-                <h3 style="margin-bottom: 20px;">Verify Your Phone</h3>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);" id="phoneVerificationText">We've sent a verification code to your phone</p>
-                
-                <div class="phone-verification-container">
-                    <div class="otp-inputs" id="otpInputs">
-                        <input type="text" maxlength="1" class="otp-digit">
-                        <input type="text" maxlength="1" class="otp-digit">
-                        <input type="text" maxlength="1" class="otp-digit">
-                        <input type="text" maxlength="1" class="otp-digit">
-                        <input type="text" maxlength="1" class="otp-digit">
-                        <input type="text" maxlength="1" class="otp-digit">
-                    </div>
-                    
-                    <div class="verification-status" id="verificationStatus" style="display: none;">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Verified successfully!</span>
-                    </div>
-                    
-                    <button class="auth-btn" id="verifyOtpBtn">
-                        <i class="fas fa-check-circle"></i> Verify Code
-                    </button>
-                    
-                    <button class="resend-otp" id="resendOtpBtn">
-                        Resend Code
-                    </button>
-                </div>
-                
-                <div class="auth-footer">
-                    <a href="#" id="backToLogin">Back to Login</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Main Dashboard -->
-    <div class="container" id="dashboardContainer" style="display: none;">
+    <div class="container">
         <header>
             <div class="logo">
                 <div class="logo-icon">
-                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
-                        EMP
-                    </div>
+                    <img src="emp.png" alt="Electro Metal Pressing Logo" class="logo-image">
                 </div>
                 <div class="logo-text">
                     <h1>Electro Metal Pressing (Pvt) Ltd</h1>
                     <p>Project Specification Form</p>
                 </div>
             </div>
-            <div class="user-info">
-                <div class="user-details">
-                    <div class="user-name" id="userName">User Name</div>
-                    <div class="user-email" id="userEmail">user@example.com</div>
-                </div>
-                <div class="user-avatar" id="userAvatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="btn btn-secondary" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+            <div class="header-info">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Fields marked with * are required</span>
                 </div>
             </div>
         </header>
         
-        <div class="form-container">
+        <!-- Authentication Section -->
+        <div class="auth-container" id="authContainer">
+            <h2 class="auth-title"><i class="fas fa-user-shield"></i> Authentication Required</h2>
+            <p>Please sign in to access the project specification form</p>
+            
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar"></div>
+                <div class="user-details">
+                    <div class="user-name" id="userName"></div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            
+            <div class="auth-methods" id="authMethods">
+                <button class="auth-btn auth-btn-google" id="googleSignIn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+                <button class="auth-btn" id="emailSignIn">
+                    <i class="fas fa-envelope"></i> Sign in with Email
+                </button>
+                <button class="auth-btn auth-btn-phone" id="phoneSignIn">
+                    <i class="fas fa-phone"></i> Sign in with Phone
+                </button>
+            </div>
+            
+            <!-- Email Authentication Form -->
+            <div class="auth-form" id="emailAuthForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button class="btn" id="emailSignInBtn">Sign In</button>
+                <button class="btn btn-secondary" id="emailSignUpBtn">Create Account</button>
+                <div class="auth-switch">
+                    <a id="backToAuthMethods">Back to authentication methods</a>
+                </div>
+            </div>
+            
+            <!-- Phone Authentication Form -->
+            <div class="auth-form" id="phoneAuthForm">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="Enter your phone number">
+                </div>
+                <div id="recaptcha-container"></div>
+                <button class="btn" id="sendCodeBtn">Send Verification Code</button>
+                <div class="form-group" id="codeVerificationGroup" style="display: none;">
+                    <label for="verificationCode">Verification Code</label>
+                    <input type="text" id="verificationCode" placeholder="Enter verification code">
+                </div>
+                <button class="btn" id="verifyCodeBtn" style="display: none;">Verify Code</button>
+                <div class="auth-switch">
+                    <a id="backToAuthMethods2">Back to authentication methods</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Specification Form (Initially Hidden) -->
+        <div class="form-container" id="formContainer" style="display: none;">
             <div class="progress-bar" id="progressBar">
                 <div class="progress-step active" data-step="1">
                     <div class="step-number">1</div>
@@ -1334,12 +1116,6 @@
                 <!-- Section 1: Basic Information -->
                 <div class="form-section active" id="section1">
                     <h2><i class="fas fa-info-circle"></i> Project Specification</h2>
-                    
-                    <div class="visual-enhancement">
-                        <div style="width: 100%; height: 200px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
-                            PROJECT SPECIFICATION FORM
-                        </div>
-                    </div>
                     
                     <div class="form-row">
                         <div class="form-col">
@@ -1513,12 +1289,6 @@
                         <i class="fas fa-info-circle"></i> Only fill for Free standings
                     </div>
                     
-                    <div class="visual-enhancement">
-                        <div style="width: 100%; height: 150px; background: var(--gradient-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
-                            FREE STANDING ENCLOSURES
-                        </div>
-                    </div>
-                    
                     <div class="card">
                         <div class="card-title"><i class="fas fa-cube"></i> Component Thickness Specifications</div>
                         <div class="form-row">
@@ -1619,12 +1389,6 @@
                     <h2><i class="fas fa-th-large"></i> Enclosure Sizes (Door, Frame, Back)</h2>
                     <div class="section-description">
                         <i class="fas fa-info-circle"></i> Only fill for Wall Mount Enclosures
-                    </div>
-                    
-                    <div class="visual-enhancement">
-                        <div style="width: 100%; height: 150px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
-                            WALL MOUNT ENCLOSURES
-                        </div>
                     </div>
                     
                     <div class="card">
@@ -1748,12 +1512,6 @@
                 <!-- Section 4: Finishing -->
                 <div class="form-section" id="section4">
                     <h2><i class="fas fa-paint-roller"></i> Finishing Details</h2>
-                    
-                    <div class="visual-enhancement">
-                        <div style="width: 100%; height: 150px; background: var(--gradient-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
-                            FINISHING DETAILS
-                        </div>
-                    </div>
                     
                     <div class="card">
                         <div class="card-title"><i class="fas fa-spray-can"></i> PAINTING</div>
@@ -2062,6 +1820,208 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
+        // Authentication state observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                showUserInfo(user);
+                showForm();
+            } else {
+                // User is signed out
+                hideUserInfo();
+                showAuth();
+            }
+        });
+
+        // Show user information
+        function showUserInfo(user) {
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            userName.textContent = user.displayName || 'User';
+            userEmail.textContent = user.email || 'No email';
+            userAvatar.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : 'U';
+            
+            userInfo.style.display = 'flex';
+        }
+
+        // Hide user information
+        function hideUserInfo() {
+            document.getElementById('userInfo').style.display = 'none';
+        }
+
+        // Show authentication section
+        function showAuth() {
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('formContainer').style.display = 'none';
+            resetAuthForms();
+        }
+
+        // Show form section
+        function showForm() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('formContainer').style.display = 'block';
+        }
+
+        // Reset authentication forms
+        function resetAuthForms() {
+            document.getElementById('emailAuthForm').classList.remove('active');
+            document.getElementById('phoneAuthForm').classList.remove('active');
+            document.getElementById('authMethods').style.display = 'flex';
+        }
+
+        // Google Sign In
+        document.getElementById('googleSignIn').addEventListener('click', () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    // User signed in successfully
+                    console.log('Google sign in successful', result.user);
+                })
+                .catch((error) => {
+                    console.error('Google sign in error', error);
+                    alert('Error signing in with Google: ' + error.message);
+                });
+        });
+
+        // Email Sign In
+        document.getElementById('emailSignIn').addEventListener('click', () => {
+            document.getElementById('authMethods').style.display = 'none';
+            document.getElementById('emailAuthForm').classList.add('active');
+        });
+
+        // Email Sign In Button
+        document.getElementById('emailSignInBtn').addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User signed in successfully
+                    console.log('Email sign in successful', userCredential.user);
+                })
+                .catch((error) => {
+                    console.error('Email sign in error', error);
+                    alert('Error signing in: ' + error.message);
+                });
+        });
+
+        // Email Sign Up Button
+        document.getElementById('emailSignUpBtn').addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password should be at least 6 characters');
+                return;
+            }
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User created successfully
+                    console.log('Email sign up successful', userCredential.user);
+                })
+                .catch((error) => {
+                    console.error('Email sign up error', error);
+                    alert('Error creating account: ' + error.message);
+                });
+        });
+
+        // Phone Sign In
+        document.getElementById('phoneSignIn').addEventListener('click', () => {
+            document.getElementById('authMethods').style.display = 'none';
+            document.getElementById('phoneAuthForm').classList.add('active');
+            
+            // Initialize reCAPTCHA verifier
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'normal',
+                'callback': (response) => {
+                    // reCAPTCHA solved, allow sendCodeBtn
+                    document.getElementById('sendCodeBtn').disabled = false;
+                }
+            });
+            
+            window.recaptchaVerifier.render().then((widgetId) => {
+                window.recaptchaWidgetId = widgetId;
+            });
+        });
+
+        // Send Verification Code
+        document.getElementById('sendCodeBtn').addEventListener('click', () => {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            if (!phoneNumber) {
+                alert('Please enter your phone number');
+                return;
+            }
+            
+            const appVerifier = window.recaptchaVerifier;
+            
+            auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                    // SMS sent
+                    window.confirmationResult = confirmationResult;
+                    document.getElementById('codeVerificationGroup').style.display = 'block';
+                    document.getElementById('verifyCodeBtn').style.display = 'block';
+                    document.getElementById('sendCodeBtn').style.display = 'none';
+                })
+                .catch((error) => {
+                    console.error('SMS send error', error);
+                    alert('Error sending SMS: ' + error.message);
+                    // Reset reCAPTCHA
+                    window.recaptchaVerifier.render().then((widgetId) => {
+                        window.recaptchaWidgetId = widgetId;
+                    });
+                });
+        });
+
+        // Verify Code
+        document.getElementById('verifyCodeBtn').addEventListener('click', () => {
+            const code = document.getElementById('verificationCode').value;
+            
+            if (!code) {
+                alert('Please enter the verification code');
+                return;
+            }
+            
+            window.confirmationResult.confirm(code)
+                .then((result) => {
+                    // User signed in successfully
+                    console.log('Phone sign in successful', result.user);
+                })
+                .catch((error) => {
+                    console.error('Code verification error', error);
+                    alert('Error verifying code: ' + error.message);
+                });
+        });
+
+        // Back to authentication methods
+        document.getElementById('backToAuthMethods').addEventListener('click', resetAuthForms);
+        document.getElementById('backToAuthMethods2').addEventListener('click', resetAuthForms);
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            auth.signOut()
+                .then(() => {
+                    console.log('User signed out');
+                })
+                .catch((error) => {
+                    console.error('Sign out error', error);
+                });
+        });
+
         // Create floating particles
         function createParticles() {
             const container = document.getElementById('particlesContainer');
@@ -2071,6 +2031,7 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
+                // Random position and animation delay
                 const left = Math.random() * 100;
                 const delay = Math.random() * 15;
                 
@@ -2078,311 +2039,6 @@
                 particle.style.animationDelay = `${delay}s`;
                 
                 container.appendChild(particle);
-            }
-        }
-
-        // Enhanced OTP input handling
-        function setupOtpInputs() {
-            const otpInputs = document.querySelectorAll('.otp-digit');
-            
-            otpInputs.forEach((input, index) => {
-                input.addEventListener('input', (e) => {
-                    // Move to next input if current input has value
-                    if (e.target.value && index < otpInputs.length - 1) {
-                        otpInputs[index + 1].focus();
-                    }
-                });
-                
-                input.addEventListener('keydown', (e) => {
-                    // Handle backspace
-                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
-                        otpInputs[index - 1].focus();
-                    }
-                });
-                
-                // Allow only numbers
-                input.addEventListener('keypress', (e) => {
-                    if (!/[0-9]/.test(e.key)) {
-                        e.preventDefault();
-                    }
-                });
-            });
-        }
-
-        // Get OTP code from inputs
-        function getOtpCode() {
-            const otpInputs = document.querySelectorAll('.otp-digit');
-            let code = '';
-            otpInputs.forEach(input => {
-                code += input.value;
-            });
-            return code;
-        }
-
-        // Authentication functions
-        function showAuth() {
-            document.getElementById('authContainer').style.display = 'flex';
-            document.getElementById('dashboardContainer').style.display = 'none';
-        }
-
-        function showDashboard(user) {
-            document.getElementById('authContainer').style.display = 'none';
-            document.getElementById('dashboardContainer').style.display = 'block';
-            
-            // Update user info
-            document.getElementById('userName').textContent = user.displayName || 'User';
-            document.getElementById('userEmail').textContent = user.email || user.phoneNumber || 'User';
-            
-            // Update avatar
-            if (user.photoURL) {
-                document.getElementById('userAvatar').innerHTML = `<img src="${user.photoURL}" alt="User Avatar" style="width: 100%; height: 100%; border-radius: 50%;">`;
-            } else {
-                const initials = user.displayName ? 
-                    user.displayName.split(' ').map(n => n[0]).join('').toUpperCase() : 
-                    (user.email ? user.email[0].toUpperCase() : 'U');
-                document.getElementById('userAvatar').innerHTML = initials;
-            }
-        }
-
-        function showLoginForm() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('phoneVerification').style.display = 'none';
-            clearAuthMessages();
-        }
-
-        function showRegisterForm() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('phoneVerification').style.display = 'none';
-            clearAuthMessages();
-        }
-
-        function showPhoneVerification() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('phoneVerification').style.display = 'block';
-            clearAuthMessages();
-            setupOtpInputs();
-        }
-
-        function clearAuthMessages() {
-            document.getElementById('authError').style.display = 'none';
-            document.getElementById('authSuccess').style.display = 'none';
-            
-            // Clear verification status
-            const verificationStatus = document.getElementById('verificationStatus');
-            verificationStatus.style.display = 'none';
-            verificationStatus.className = 'verification-status';
-        }
-
-        function showAuthError(message) {
-            const authError = document.getElementById('authError');
-            authError.textContent = message;
-            authError.style.display = 'block';
-            document.getElementById('authSuccess').style.display = 'none';
-        }
-
-        function showAuthSuccess(message) {
-            const authSuccess = document.getElementById('authSuccess');
-            authSuccess.textContent = message;
-            authSuccess.style.display = 'block';
-            document.getElementById('authError').style.display = 'none';
-        }
-
-        // Phone Authentication
-        let confirmationResult = null;
-        let phoneAuthTimer = null;
-        let resendTimeout = 60;
-        let currentPhoneNumber = '';
-
-        function startPhoneAuthTimer() {
-            const resendBtn = document.getElementById('resendOtpBtn');
-            resendBtn.disabled = true;
-            
-            phoneAuthTimer = setInterval(() => {
-                resendTimeout--;
-                resendBtn.textContent = `Resend Code (${resendTimeout}s)`;
-                
-                if (resendTimeout <= 0) {
-                    clearInterval(phoneAuthTimer);
-                    resendBtn.disabled = false;
-                    resendBtn.textContent = 'Resend Code';
-                    resendTimeout = 60;
-                }
-            }, 1000);
-        }
-
-        function signInWithPhone(isRegister = false) {
-            const countryCode = isRegister ? 
-                document.getElementById('registerCountryCode').value : 
-                document.getElementById('countryCode').value;
-            const phoneNumber = isRegister ? 
-                document.getElementById('registerPhoneNumber').value : 
-                document.getElementById('phoneNumber').value;
-            
-            if (!phoneNumber) {
-                showAuthError('Please enter your phone number');
-                return;
-            }
-            
-            currentPhoneNumber = countryCode + phoneNumber;
-            
-            // For demo purposes - in production, you would use Firebase Phone Auth
-            // This is a simulation since Firebase Phone Auth requires additional setup
-            showAuthSuccess('OTP sent to your phone');
-            document.getElementById('phoneVerificationText').textContent = `We've sent a verification code to ${currentPhoneNumber}`;
-            showPhoneVerification();
-            startPhoneAuthTimer();
-            
-            // Clear the OTP inputs for security
-            const otpInputs = document.querySelectorAll('.otp-digit');
-            otpInputs.forEach(input => input.value = '');
-            
-            // Focus first OTP input
-            if (otpInputs.length > 0) {
-                otpInputs[0].focus();
-            }
-        }
-
-        function verifyOtp() {
-            const otpCode = getOtpCode();
-            
-            if (!otpCode || otpCode.length !== 6) {
-                showAuthError('Please enter a valid 6-digit code');
-                return;
-            }
-            
-            // For demo purposes - simulate successful verification
-            // In a real app, this would be verified against Firebase
-            const verificationStatus = document.getElementById('verificationStatus');
-            verificationStatus.className = 'verification-status success';
-            verificationStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Verified successfully!</span>';
-            verificationStatus.style.display = 'flex';
-            
-            // Create a mock user for demo
-            const mockUser = {
-                displayName: 'Phone User',
-                phoneNumber: currentPhoneNumber,
-                uid: 'phone-user-' + Date.now()
-            };
-            
-            setTimeout(() => {
-                showDashboard(mockUser);
-                initForm();
-            }, 1500);
-        }
-
-        function signInWithEmail() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                showAuthError('Please enter both email and password');
-                return;
-            }
-            
-            auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    showAuthSuccess('Signed in successfully!');
-                    setTimeout(() => {
-                        showDashboard(userCredential.user);
-                        initForm();
-                    }, 1500);
-                })
-                .catch((error) => {
-                    console.error('Sign in error:', error);
-                    showAuthError(getAuthErrorMessage(error));
-                });
-        }
-
-        function signUpWithEmail() {
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            
-            if (!name || !email || !password) {
-                showAuthError('Please fill in all fields');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showAuthError('Password should be at least 6 characters');
-                return;
-            }
-            
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    return userCredential.user.updateProfile({
-                        displayName: name
-                    });
-                })
-                .then(() => {
-                    showAuthSuccess('Account created successfully!');
-                    setTimeout(() => {
-                        showDashboard(auth.currentUser);
-                        initForm();
-                    }, 1500);
-                })
-                .catch((error) => {
-                    console.error('Sign up error:', error);
-                    showAuthError(getAuthErrorMessage(error));
-                });
-        }
-
-        function signInWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    showAuthSuccess('Signed in with Google successfully!');
-                    setTimeout(() => {
-                        showDashboard(result.user);
-                        initForm();
-                    }, 1500);
-                })
-                .catch((error) => {
-                    console.error('Google sign in error:', error);
-                    showAuthError(getAuthErrorMessage(error));
-                });
-        }
-
-        function signOut() {
-            auth.signOut()
-                .then(() => {
-                    console.log('User signed out successfully');
-                    showAuth();
-                })
-                .catch((error) => {
-                    console.error('Sign out error:', error);
-                    showAuthError('Error signing out. Please try again.');
-                });
-        }
-
-        function getAuthErrorMessage(error) {
-            switch (error.code) {
-                case 'auth/invalid-email':
-                    return 'Invalid email address';
-                case 'auth/user-disabled':
-                    return 'This account has been disabled';
-                case 'auth/user-not-found':
-                    return 'No account found with this email';
-                case 'auth/wrong-password':
-                    return 'Incorrect password';
-                case 'auth/email-already-in-use':
-                    return 'This email is already in use';
-                case 'auth/weak-password':
-                    return 'Password is too weak';
-                case 'auth/operation-not-allowed':
-                    return 'This operation is not allowed';
-                case 'auth/network-request-failed':
-                    return 'Network error. Please check your connection';
-                case 'auth/invalid-phone-number':
-                    return 'Invalid phone number';
-                case 'auth/missing-phone-number':
-                    return 'Please enter your phone number';
-                default:
-                    return 'An error occurred. Please try again';
             }
         }
 
@@ -2403,247 +2059,221 @@
             // Create particles
             createParticles();
             
-            // Check authentication state
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    showDashboard(user);
-                    initForm();
-                } else {
-                    showAuth();
+            // Update progress bar
+            function updateProgressBar() {
+                const progressPercentage = ((currentSection - 1) / (sections.length - 1)) * 100;
+                progressBar.style.setProperty('--progress', `${progressPercentage}%`);
+                
+                progressSteps.forEach((step, index) => {
+                    if (index + 1 < currentSection) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (index + 1 === currentSection) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+            }
+            
+            // Show section based on currentSection
+            function showSection(sectionNumber) {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`section${sectionNumber}`).classList.add('active');
+                currentSection = sectionNumber;
+                updateProgressBar();
+                
+                // Auto-save form data when navigating
+                saveFormData();
+            }
+            
+            // Save form data to local storage
+            function saveFormData() {
+                const formElements = document.getElementById('projectSpecForm').elements;
+                formData = {};
+                
+                for (let i = 0; i < formElements.length; i++) {
+                    const element = formElements[i];
+                    if (element.name && (element.type !== 'radio' || element.checked)) {
+                        if (element.type === 'checkbox') {
+                            if (!formData[element.name]) {
+                                formData[element.name] = [];
+                            }
+                            if (element.checked) {
+                                formData[element.name].push(element.value);
+                            }
+                        } else {
+                            formData[element.name] = element.value;
+                        }
+                    }
+                }
+                
+                localStorage.setItem('projectSpecFormData', JSON.stringify(formData));
+                
+                // Show save indicator
+                saveIndicator.classList.add('show');
+                setTimeout(() => {
+                    saveIndicator.classList.remove('show');
+                }, 2000);
+            }
+            
+            // Load form data from local storage
+            function loadFormData() {
+                const savedData = localStorage.getItem('projectSpecFormData');
+                if (savedData) {
+                    formData = JSON.parse(savedData);
+                    
+                    // Populate form fields with saved data
+                    for (const key in formData) {
+                        const value = formData[key];
+                        const elements = document.querySelectorAll(`[name="${key}"]`);
+                        
+                        elements.forEach(element => {
+                            if (element.type === 'checkbox') {
+                                element.checked = Array.isArray(value) && value.includes(element.value);
+                            } else if (element.type === 'radio') {
+                                element.checked = element.value === value;
+                            } else {
+                                element.value = value;
+                            }
+                        });
+                    }
+                    
+                    console.log('Form data loaded from local storage');
+                }
+            }
+            
+            // Next button event listeners
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Validate current section before proceeding
+                    if (validateSection(currentSection)) {
+                        let nextSection = currentSection + 1;
+                        
+                        // Check if mounting type selection should determine next section
+                        if (currentSection === 1) {
+                            const selectedMounting = document.querySelector('input[name="mountingType"]:checked');
+                            if (selectedMounting && selectedMounting.dataset.next) {
+                                selectedMountingType = selectedMounting.value;
+                                const targetSection = selectedMounting.dataset.next.replace('section', '');
+                                nextSection = parseInt(targetSection);
+                            }
+                        } else {
+                            // After section 1, follow the correct path based on mounting type
+                            if (selectedMountingType === "Free Standing" && currentSection === 2) {
+                                nextSection = 4; // Skip wall mount section for free standing
+                            }
+                        }
+                        
+                        showSection(nextSection);
+                    }
+                });
+            });
+            
+            // Previous button event listeners
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let prevSection = currentSection - 1;
+                    
+                    // Handle going back from section 4 to the correct previous section
+                    if (currentSection === 4 && selectedMountingType === "Free Standing") {
+                        prevSection = 2; // Go back to free standing section
+                    }
+                    
+                    showSection(prevSection);
+                });
+            });
+            
+            // Mounting type selection changes navigation
+            mountingTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    selectedMountingType = this.value;
+                });
+            });
+            
+            // Auto-save when form fields change
+            document.getElementById('projectSpecForm').addEventListener('change', saveFormData);
+            document.getElementById('projectSpecForm').addEventListener('input', function(e) {
+                if (e.target.type === 'text' || e.target.type === 'textarea') {
+                    saveFormData();
                 }
             });
             
-            // Event listeners for authentication
-            document.getElementById('loginBtn').addEventListener('click', signInWithEmail);
-            document.getElementById('phoneLoginBtn').addEventListener('click', () => signInWithPhone(false));
-            document.getElementById('phoneRegisterBtn').addEventListener('click', () => signInWithPhone(true));
-            document.getElementById('googleLoginBtn').addEventListener('click', signInWithGoogle);
-            document.getElementById('googleRegisterBtn').addEventListener('click', signInWithGoogle);
-            document.getElementById('registerBtn').addEventListener('click', signUpWithEmail);
-            document.getElementById('verifyOtpBtn').addEventListener('click', verifyOtp);
-            document.getElementById('resendOtpBtn').addEventListener('click', () => signInWithPhone(false));
-            document.getElementById('showRegister').addEventListener('click', showRegisterForm);
-            document.getElementById('showLogin').addEventListener('click', showLoginForm);
-            document.getElementById('backToLogin').addEventListener('click', showLoginForm);
-            document.getElementById('logoutBtn').addEventListener('click', signOut);
-            
-            function initForm() {
-                // Update progress bar
-                function updateProgressBar() {
-                    const progressPercentage = ((currentSection - 1) / (sections.length - 1)) * 100;
-                    progressBar.style.setProperty('--progress', `${progressPercentage}%`);
-                    
-                    progressSteps.forEach((step, index) => {
-                        if (index + 1 < currentSection) {
-                            step.classList.add('completed');
-                            step.classList.remove('active');
-                        } else if (index + 1 === currentSection) {
-                            step.classList.add('active');
-                            step.classList.remove('completed');
-                        } else {
-                            step.classList.remove('active', 'completed');
-                        }
-                    });
-                }
+            // Form submission
+            document.getElementById('projectSpecForm').addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                // Show section based on currentSection
-                function showSection(sectionNumber) {
-                    sections.forEach(section => {
-                        section.classList.remove('active');
-                    });
-                    document.getElementById(`section${sectionNumber}`).classList.add('active');
-                    currentSection = sectionNumber;
-                    updateProgressBar();
-                    
-                    // Auto-save form data when navigating
-                    saveFormData();
-                }
-                
-                // Save form data to local storage
-                function saveFormData() {
+                if (validateSection(currentSection)) {
+                    // Collect form data
                     const formElements = document.getElementById('projectSpecForm').elements;
-                    formData = {};
+                    const data = {};
                     
                     for (let i = 0; i < formElements.length; i++) {
                         const element = formElements[i];
                         if (element.name && (element.type !== 'radio' || element.checked)) {
                             if (element.type === 'checkbox') {
-                                if (!formData[element.name]) {
-                                    formData[element.name] = [];
+                                if (!data[element.name]) {
+                                    data[element.name] = [];
                                 }
                                 if (element.checked) {
-                                    formData[element.name].push(element.value);
+                                    data[element.name].push(element.value);
                                 }
                             } else {
-                                formData[element.name] = element.value;
+                                data[element.name] = element.value;
                             }
                         }
                     }
                     
-                    localStorage.setItem('projectSpecFormData', JSON.stringify(formData));
+                    // Add user info and timestamp
+                    const user = auth.currentUser;
+                    data.userId = user ? user.uid : 'anonymous';
+                    data.userEmail = user ? user.email : 'anonymous';
+                    data.timestamp = new Date().toISOString();
                     
-                    // Show save indicator
-                    saveIndicator.classList.add('show');
-                    setTimeout(() => {
-                        saveIndicator.classList.remove('show');
-                    }, 2000);
+                    // Submit to Firebase
+                    db.collection("projectSpecifications").add(data)
+                        .then((docRef) => {
+                            alert("Form submitted successfully!");
+                            document.getElementById('projectSpecForm').reset();
+                            localStorage.removeItem('projectSpecFormData');
+                            showSection(1);
+                        })
+                        .catch((error) => {
+                            console.error("Error adding document: ", error);
+                            alert("There was an error submitting the form. Please try again.");
+                        });
+                }
+            });
+            
+            // Basic validation for each section
+            function validateSection(sectionNumber) {
+                let isValid = true;
+                const currentSection = document.getElementById(`section${sectionNumber}`);
+                
+                // Check required fields in current section
+                const requiredFields = currentSection.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--accent)';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Please fill in all required fields before proceeding.');
                 }
                 
-                // Load form data from local storage
-                function loadFormData() {
-                    const savedData = localStorage.getItem('projectSpecFormData');
-                    if (savedData) {
-                        formData = JSON.parse(savedData);
-                        
-                        // Populate form fields with saved data
-                        for (const key in formData) {
-                            const value = formData[key];
-                            const elements = document.querySelectorAll(`[name="${key}"]`);
-                            
-                            elements.forEach(element => {
-                                if (element.type === 'checkbox') {
-                                    element.checked = Array.isArray(value) && value.includes(element.value);
-                                } else if (element.type === 'radio') {
-                                    element.checked = element.value === value;
-                                } else {
-                                    element.value = value;
-                                }
-                            });
-                        }
-                        
-                        console.log('Form data loaded from local storage');
-                    }
-                }
-                
-                // Next button event listeners
-                nextButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        // Validate current section before proceeding
-                        if (validateSection(currentSection)) {
-                            let nextSection = currentSection + 1;
-                            
-                            // Check if mounting type selection should determine next section
-                            if (currentSection === 1) {
-                                const selectedMounting = document.querySelector('input[name="mountingType"]:checked');
-                                if (selectedMounting && selectedMounting.dataset.next) {
-                                    selectedMountingType = selectedMounting.value;
-                                    const targetSection = selectedMounting.dataset.next.replace('section', '');
-                                    nextSection = parseInt(targetSection);
-                                }
-                            } else {
-                                // After section 1, follow the correct path based on mounting type
-                                if (selectedMountingType === "Free Standing" && currentSection === 2) {
-                                    nextSection = 4; // Skip wall mount section for free standing
-                                }
-                            }
-                            
-                            showSection(nextSection);
-                        }
-                    });
-                });
-                
-                // Previous button event listeners
-                prevButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        let prevSection = currentSection - 1;
-                        
-                        // Handle going back from section 4 to the correct previous section
-                        if (currentSection === 4 && selectedMountingType === "Free Standing") {
-                            prevSection = 2; // Go back to free standing section
-                        }
-                        
-                        showSection(prevSection);
-                    });
-                });
-                
-                // Mounting type selection changes navigation
-                mountingTypeRadios.forEach(radio => {
-                    radio.addEventListener('change', function() {
-                        selectedMountingType = this.value;
-                    });
-                });
-                
-                // Auto-save when form fields change
-                document.getElementById('projectSpecForm').addEventListener('change', saveFormData);
-                document.getElementById('projectSpecForm').addEventListener('input', function(e) {
-                    if (e.target.type === 'text' || e.target.type === 'textarea') {
-                        saveFormData();
-                    }
-                });
-                
-                // Form submission
-                document.getElementById('projectSpecForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    if (validateSection(currentSection)) {
-                        // Collect form data
-                        const formElements = document.getElementById('projectSpecForm').elements;
-                        const data = {};
-                        
-                        for (let i = 0; i < formElements.length; i++) {
-                            const element = formElements[i];
-                            if (element.name && (element.type !== 'radio' || element.checked)) {
-                                if (element.type === 'checkbox') {
-                                    if (!data[element.name]) {
-                                        data[element.name] = [];
-                                    }
-                                    if (element.checked) {
-                                        data[element.name].push(element.value);
-                                    }
-                                } else {
-                                    data[element.name] = element.value;
-                                }
-                            }
-                        }
-                        
-                        // Add timestamp and user info
-                        data.timestamp = new Date().toISOString();
-                        data.userId = auth.currentUser ? auth.currentUser.uid : 'demo-user';
-                        data.userEmail = auth.currentUser ? auth.currentUser.email : 'demo@example.com';
-                        data.userName = auth.currentUser ? auth.currentUser.displayName : 'Demo User';
-                        
-                        // Submit to Firebase
-                        db.collection("projectSpecifications").add(data)
-                            .then((docRef) => {
-                                alert("Form submitted successfully!");
-                                document.getElementById('projectSpecForm').reset();
-                                localStorage.removeItem('projectSpecFormData');
-                                showSection(1);
-                            })
-                            .catch((error) => {
-                                console.error("Error adding document: ", error);
-                                alert("There was an error submitting the form. Please try again.");
-                            });
-                    }
-                });
-                
-                // Basic validation for each section
-                function validateSection(sectionNumber) {
-                    let isValid = true;
-                    const currentSection = document.getElementById(`section${sectionNumber}`);
-                    
-                    // Check required fields in current section
-                    const requiredFields = currentSection.querySelectorAll('[required]');
-                    requiredFields.forEach(field => {
-                        if (!field.value.trim()) {
-                            isValid = false;
-                            field.style.borderColor = 'var(--accent)';
-                        } else {
-                            field.style.borderColor = '';
-                        }
-                    });
-                    
-                    if (!isValid) {
-                        alert('Please fill in all required fields before proceeding.');
-                    }
-                    
-                    return isValid;
-                }
-                
-                // Initialize the form
-                updateProgressBar();
-                loadFormData();
+                return isValid;
             }
+            
+            // Initialize the form
+            updateProgressBar();
+            loadFormData();
         });
     </script>
 </body>

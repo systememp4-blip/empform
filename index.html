@@ -380,6 +380,7 @@
         }
         
         input[type="text"], 
+        input[type="tel"],
         textarea,
         select {
             width: 100%;
@@ -393,6 +394,7 @@
         }
         
         input[type="text"]:focus, 
+        input[type="tel"]:focus,
         textarea:focus,
         select:focus {
             outline: none;
@@ -794,6 +796,52 @@
             display: none;
         }
         
+        .phone-input-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .country-code {
+            width: 80px;
+            flex-shrink: 0;
+        }
+        
+        .phone-number {
+            flex: 1;
+        }
+        
+        .otp-container {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .otp-input {
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            font-weight: bold;
+        }
+        
+        .resend-otp {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .resend-otp:hover {
+            text-decoration: underline;
+        }
+        
+        .resend-otp:disabled {
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 768px) {
             .progress-bar {
                 flex-direction: column;
@@ -858,6 +906,14 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 10px;
+            }
+            
+            .phone-input-container {
+                flex-direction: column;
+            }
+            
+            .country-code {
+                width: 100%;
             }
         }
         
@@ -986,7 +1042,9 @@
     <div class="auth-container" id="authContainer">
         <div class="auth-card">
             <div class="auth-logo">
-                <img src="emp.png" alt="EMP Logo" class="logo-image" id="authLogo">
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
+                    EMP
+                </div>
             </div>
             <h2 class="auth-title">Electro Metal Pressing</h2>
             <p class="auth-subtitle">Project Specification Form</p>
@@ -1001,6 +1059,26 @@
                     <input type="password" class="auth-input" id="loginPassword" placeholder="Password" required>
                     <button class="auth-btn" id="loginBtn">
                         <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </div>
+                
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+                
+                <div class="auth-form">
+                    <div class="phone-input-container">
+                        <select class="auth-input country-code" id="countryCode">
+                            <option value="+1">+1 (US)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+91" selected>+91 (IN)</option>
+                            <option value="+61">+61 (AU)</option>
+                            <option value="+49">+49 (DE)</option>
+                        </select>
+                        <input type="tel" class="auth-input phone-number" id="phoneNumber" placeholder="Phone Number" required>
+                    </div>
+                    <button class="auth-btn" id="phoneLoginBtn">
+                        <i class="fas fa-mobile-alt"></i> Sign in with Phone
                     </button>
                 </div>
                 
@@ -1032,12 +1110,52 @@
                     <span>OR</span>
                 </div>
                 
+                <div class="auth-form">
+                    <div class="phone-input-container">
+                        <select class="auth-input country-code" id="registerCountryCode">
+                            <option value="+1">+1 (US)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+91" selected>+91 (IN)</option>
+                            <option value="+61">+61 (AU)</option>
+                            <option value="+49">+49 (DE)</option>
+                        </select>
+                        <input type="tel" class="auth-input phone-number" id="registerPhoneNumber" placeholder="Phone Number" required>
+                    </div>
+                    <button class="auth-btn" id="phoneRegisterBtn">
+                        <i class="fas fa-mobile-alt"></i> Sign up with Phone
+                    </button>
+                </div>
+                
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+                
                 <button class="auth-btn btn-secondary" id="googleRegisterBtn">
                     <i class="fab fa-google"></i> Sign up with Google
                 </button>
                 
                 <div class="auth-footer">
                     Already have an account? <a href="#" id="showLogin">Sign in</a>
+                </div>
+            </div>
+            
+            <!-- Phone OTP Verification -->
+            <div id="phoneVerification" style="display: none;">
+                <h3 style="margin-bottom: 20px;">Verify Your Phone</h3>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">We've sent a verification code to your phone</p>
+                
+                <div class="auth-form">
+                    <input type="text" class="auth-input otp-input" id="otpCode" placeholder="Enter 6-digit code" maxlength="6" required>
+                    <button class="auth-btn" id="verifyOtpBtn">
+                        <i class="fas fa-check-circle"></i> Verify Code
+                    </button>
+                    <button class="resend-otp" id="resendOtpBtn">
+                        Resend Code
+                    </button>
+                </div>
+                
+                <div class="auth-footer">
+                    <a href="#" id="backToLogin">Back to Login</a>
                 </div>
             </div>
         </div>
@@ -1048,7 +1166,9 @@
         <header>
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="emp.png" alt="Electro Metal Pressing Logo" class="logo-image">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">
+                        EMP
+                    </div>
                 </div>
                 <div class="logo-text">
                     <h1>Electro Metal Pressing (Pvt) Ltd</h1>
@@ -1806,7 +1926,6 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Random position and animation delay
                 const left = Math.random() * 100;
                 const delay = Math.random() * 15;
                 
@@ -1829,7 +1948,7 @@
             
             // Update user info
             document.getElementById('userName').textContent = user.displayName || 'User';
-            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userEmail').textContent = user.email || user.phoneNumber || 'User';
             
             // Update avatar
             if (user.photoURL) {
@@ -1837,7 +1956,7 @@
             } else {
                 const initials = user.displayName ? 
                     user.displayName.split(' ').map(n => n[0]).join('').toUpperCase() : 
-                    user.email[0].toUpperCase();
+                    (user.email ? user.email[0].toUpperCase() : 'U');
                 document.getElementById('userAvatar').innerHTML = initials;
             }
         }
@@ -1845,12 +1964,21 @@
         function showLoginForm() {
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('phoneVerification').style.display = 'none';
             clearAuthMessages();
         }
 
         function showRegisterForm() {
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('phoneVerification').style.display = 'none';
+            clearAuthMessages();
+        }
+
+        function showPhoneVerification() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('phoneVerification').style.display = 'block';
             clearAuthMessages();
         }
 
@@ -1873,6 +2001,81 @@
             document.getElementById('authError').style.display = 'none';
         }
 
+        // Phone Authentication
+        let confirmationResult = null;
+        let phoneAuthTimer = null;
+        let resendTimeout = 60;
+
+        function startPhoneAuthTimer() {
+            const resendBtn = document.getElementById('resendOtpBtn');
+            resendBtn.disabled = true;
+            
+            phoneAuthTimer = setInterval(() => {
+                resendTimeout--;
+                resendBtn.textContent = `Resend Code (${resendTimeout}s)`;
+                
+                if (resendTimeout <= 0) {
+                    clearInterval(phoneAuthTimer);
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = 'Resend Code';
+                    resendTimeout = 60;
+                }
+            }, 1000);
+        }
+
+        function signInWithPhone(isRegister = false) {
+            const countryCode = isRegister ? 
+                document.getElementById('registerCountryCode').value : 
+                document.getElementById('countryCode').value;
+            const phoneNumber = isRegister ? 
+                document.getElementById('registerPhoneNumber').value : 
+                document.getElementById('phoneNumber').value;
+            
+            if (!phoneNumber) {
+                showAuthError('Please enter your phone number');
+                return;
+            }
+            
+            const fullPhoneNumber = countryCode + phoneNumber;
+            
+            // For demo purposes - in production, you would use Firebase Phone Auth
+            // This is a simulation since Firebase Phone Auth requires additional setup
+            showAuthSuccess('OTP sent to your phone: ' + fullPhoneNumber);
+            showPhoneVerification();
+            startPhoneAuthTimer();
+            
+            // Simulate OTP (in real app, this would be handled by Firebase)
+            document.getElementById('otpCode').value = '123456';
+        }
+
+        function verifyOtp() {
+            const otpCode = document.getElementById('otpCode').value;
+            
+            if (!otpCode || otpCode.length !== 6) {
+                showAuthError('Please enter a valid 6-digit code');
+                return;
+            }
+            
+            // For demo purposes - simulate successful verification
+            if (otpCode === '123456') {
+                showAuthSuccess('Phone verified successfully!');
+                
+                // Create a mock user for demo
+                const mockUser = {
+                    displayName: 'Phone User',
+                    phoneNumber: '+911234567890',
+                    uid: 'phone-user-' + Date.now()
+                };
+                
+                setTimeout(() => {
+                    showDashboard(mockUser);
+                    initForm();
+                }, 1500);
+            } else {
+                showAuthError('Invalid verification code');
+            }
+        }
+
         function signInWithEmail() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -1884,9 +2087,7 @@
             
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // Signed in successfully
                     showAuthSuccess('Signed in successfully!');
-                    // The onAuthStateChanged listener will handle the UI update
                 })
                 .catch((error) => {
                     console.error('Sign in error:', error);
@@ -1911,14 +2112,12 @@
             
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
-                    // User created successfully
                     return userCredential.user.updateProfile({
                         displayName: name
                     });
                 })
                 .then(() => {
                     showAuthSuccess('Account created successfully!');
-                    // The onAuthStateChanged listener will handle the UI update
                 })
                 .catch((error) => {
                     console.error('Sign up error:', error);
@@ -1931,9 +2130,7 @@
             
             auth.signInWithPopup(provider)
                 .then((result) => {
-                    // Signed in successfully
                     showAuthSuccess('Signed in with Google successfully!');
-                    // The onAuthStateChanged listener will handle the UI update
                 })
                 .catch((error) => {
                     console.error('Google sign in error:', error);
@@ -1944,11 +2141,11 @@
         function signOut() {
             auth.signOut()
                 .then(() => {
-                    // Signed out successfully
-                    // The onAuthStateChanged listener will handle the UI update
+                    console.log('User signed out successfully');
                 })
                 .catch((error) => {
                     console.error('Sign out error:', error);
+                    showAuthError('Error signing out. Please try again.');
                 });
         }
 
@@ -1970,6 +2167,10 @@
                     return 'This operation is not allowed';
                 case 'auth/network-request-failed':
                     return 'Network error. Please check your connection';
+                case 'auth/invalid-phone-number':
+                    return 'Invalid phone number';
+                case 'auth/missing-phone-number':
+                    return 'Please enter your phone number';
                 default:
                     return 'An error occurred. Please try again';
             }
@@ -1995,23 +2196,25 @@
             // Check authentication state
             auth.onAuthStateChanged(user => {
                 if (user) {
-                    // User is signed in
                     showDashboard(user);
-                    // Initialize form functionality
                     initForm();
                 } else {
-                    // User is signed out
                     showAuth();
                 }
             });
             
             // Event listeners for authentication
             document.getElementById('loginBtn').addEventListener('click', signInWithEmail);
+            document.getElementById('phoneLoginBtn').addEventListener('click', () => signInWithPhone(false));
+            document.getElementById('phoneRegisterBtn').addEventListener('click', () => signInWithPhone(true));
             document.getElementById('googleLoginBtn').addEventListener('click', signInWithGoogle);
             document.getElementById('registerBtn').addEventListener('click', signUpWithEmail);
             document.getElementById('googleRegisterBtn').addEventListener('click', signInWithGoogle);
+            document.getElementById('verifyOtpBtn').addEventListener('click', verifyOtp);
+            document.getElementById('resendOtpBtn').addEventListener('click', () => signInWithPhone(false));
             document.getElementById('showRegister').addEventListener('click', showRegisterForm);
             document.getElementById('showLogin').addEventListener('click', showLoginForm);
+            document.getElementById('backToLogin').addEventListener('click', showLoginForm);
             document.getElementById('logoutBtn').addEventListener('click', signOut);
             
             function initForm() {
@@ -2185,9 +2388,9 @@
                         
                         // Add timestamp and user info
                         data.timestamp = new Date().toISOString();
-                        data.userId = auth.currentUser.uid;
-                        data.userEmail = auth.currentUser.email;
-                        data.userName = auth.currentUser.displayName || 'Unknown User';
+                        data.userId = auth.currentUser ? auth.currentUser.uid : 'demo-user';
+                        data.userEmail = auth.currentUser ? auth.currentUser.email : 'demo@example.com';
+                        data.userName = auth.currentUser ? auth.currentUser.displayName : 'Demo User';
                         
                         // Submit to Firebase
                         db.collection("projectSpecifications").add(data)

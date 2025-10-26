@@ -1020,6 +1020,21 @@
             color: var(--accent);
             border: 1px solid var(--accent);
         }
+        
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -1894,6 +1909,10 @@
             document.getElementById('phoneAuthForm').classList.remove('active');
             document.getElementById('authMethods').style.display = 'flex';
             
+            // Clear email form
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            
             // Clear phone auth form
             document.getElementById('phoneNumber').value = '+1';
             document.getElementById('verificationCode').value = '';
@@ -1939,6 +1958,11 @@
                 return;
             }
             
+            // Show loading state
+            const originalText = document.getElementById('emailSignInBtn').innerHTML;
+            document.getElementById('emailSignInBtn').innerHTML = '<span class="spinner"></span> Signing In...';
+            document.getElementById('emailSignInBtn').disabled = true;
+            
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User signed in successfully
@@ -1947,6 +1971,10 @@
                 .catch((error) => {
                     console.error('Email sign in error', error);
                     alert('Error signing in: ' + error.message);
+                    
+                    // Reset button state
+                    document.getElementById('emailSignInBtn').innerHTML = originalText;
+                    document.getElementById('emailSignInBtn').disabled = false;
                 });
         });
 
@@ -1965,6 +1993,11 @@
                 return;
             }
             
+            // Show loading state
+            const originalText = document.getElementById('emailSignUpBtn').innerHTML;
+            document.getElementById('emailSignUpBtn').innerHTML = '<span class="spinner"></span> Creating Account...';
+            document.getElementById('emailSignUpBtn').disabled = true;
+            
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User created successfully
@@ -1973,6 +2006,10 @@
                 .catch((error) => {
                     console.error('Email sign up error', error);
                     alert('Error creating account: ' + error.message);
+                    
+                    // Reset button state
+                    document.getElementById('emailSignUpBtn').innerHTML = originalText;
+                    document.getElementById('emailSignUpBtn').disabled = false;
                 });
         });
 
@@ -2021,6 +2058,11 @@
             
             const appVerifier = window.recaptchaVerifier;
             
+            // Show loading state
+            const originalText = document.getElementById('sendCodeBtn').innerHTML;
+            document.getElementById('sendCodeBtn').innerHTML = '<span class="spinner"></span> Sending Code...';
+            document.getElementById('sendCodeBtn').disabled = true;
+            
             auth.signInWithPhoneNumber(phoneNumber, appVerifier)
                 .then((confirmationResult) => {
                     // SMS sent
@@ -2049,6 +2091,10 @@
                     }
                     
                     showPhoneStatus(errorMessage, 'error');
+                    
+                    // Reset button state
+                    document.getElementById('sendCodeBtn').innerHTML = originalText;
+                    document.getElementById('sendCodeBtn').disabled = false;
                     
                     // Reset reCAPTCHA
                     if (window.recaptchaVerifier) {
@@ -2089,6 +2135,11 @@
                 return;
             }
             
+            // Show loading state
+            const originalText = document.getElementById('verifyCodeBtn').innerHTML;
+            document.getElementById('verifyCodeBtn').innerHTML = '<span class="spinner"></span> Verifying...';
+            document.getElementById('verifyCodeBtn').disabled = true;
+            
             window.confirmationResult.confirm(code)
                 .then((result) => {
                     // User signed in successfully
@@ -2111,6 +2162,10 @@
                     }
                     
                     showPhoneStatus(errorMessage, 'error');
+                    
+                    // Reset button state
+                    document.getElementById('verifyCodeBtn').innerHTML = originalText;
+                    document.getElementById('verifyCodeBtn').disabled = false;
                 });
         });
 
@@ -2340,6 +2395,11 @@
                     data.userEmail = user ? user.email : 'anonymous';
                     data.timestamp = new Date().toISOString();
                     
+                    // Show loading state
+                    const originalText = document.getElementById('submitForm').innerHTML;
+                    document.getElementById('submitForm').innerHTML = '<span class="spinner"></span> Submitting...';
+                    document.getElementById('submitForm').disabled = true;
+                    
                     // Submit to Firebase
                     db.collection("projectSpecifications").add(data)
                         .then((docRef) => {
@@ -2347,10 +2407,18 @@
                             document.getElementById('projectSpecForm').reset();
                             localStorage.removeItem('projectSpecFormData');
                             showSection(1);
+                            
+                            // Reset button state
+                            document.getElementById('submitForm').innerHTML = originalText;
+                            document.getElementById('submitForm').disabled = false;
                         })
                         .catch((error) => {
                             console.error("Error adding document: ", error);
                             alert("There was an error submitting the form. Please try again.");
+                            
+                            // Reset button state
+                            document.getElementById('submitForm').innerHTML = originalText;
+                            document.getElementById('submitForm').disabled = false;
                         });
                 }
             });

@@ -1071,7 +1071,8 @@
                         <select class="auth-input country-code" id="countryCode">
                             <option value="+1">+1 (US)</option>
                             <option value="+44">+44 (UK)</option>
-                            <option value="+91" selected>+91 (IN)</option>
+                            <option value="+91">+91 (IN)</option>
+                            <option value="+94" selected>+94 (LK)</option>
                             <option value="+61">+61 (AU)</option>
                             <option value="+49">+49 (DE)</option>
                         </select>
@@ -1115,7 +1116,8 @@
                         <select class="auth-input country-code" id="registerCountryCode">
                             <option value="+1">+1 (US)</option>
                             <option value="+44">+44 (UK)</option>
-                            <option value="+91" selected>+91 (IN)</option>
+                            <option value="+91">+91 (IN)</option>
+                            <option value="+94" selected>+94 (LK)</option>
                             <option value="+61">+61 (AU)</option>
                             <option value="+49">+49 (DE)</option>
                         </select>
@@ -2063,7 +2065,7 @@
                 // Create a mock user for demo
                 const mockUser = {
                     displayName: 'Phone User',
-                    phoneNumber: '+911234567890',
+                    phoneNumber: '+94123456789',
                     uid: 'phone-user-' + Date.now()
                 };
                 
@@ -2088,6 +2090,10 @@
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     showAuthSuccess('Signed in successfully!');
+                    setTimeout(() => {
+                        showDashboard(userCredential.user);
+                        initForm();
+                    }, 1500);
                 })
                 .catch((error) => {
                     console.error('Sign in error:', error);
@@ -2118,6 +2124,10 @@
                 })
                 .then(() => {
                     showAuthSuccess('Account created successfully!');
+                    setTimeout(() => {
+                        showDashboard(auth.currentUser);
+                        initForm();
+                    }, 1500);
                 })
                 .catch((error) => {
                     console.error('Sign up error:', error);
@@ -2131,6 +2141,10 @@
             auth.signInWithPopup(provider)
                 .then((result) => {
                     showAuthSuccess('Signed in with Google successfully!');
+                    setTimeout(() => {
+                        showDashboard(result.user);
+                        initForm();
+                    }, 1500);
                 })
                 .catch((error) => {
                     console.error('Google sign in error:', error);
@@ -2142,6 +2156,7 @@
             auth.signOut()
                 .then(() => {
                     console.log('User signed out successfully');
+                    showAuth();
                 })
                 .catch((error) => {
                     console.error('Sign out error:', error);
@@ -2208,8 +2223,8 @@
             document.getElementById('phoneLoginBtn').addEventListener('click', () => signInWithPhone(false));
             document.getElementById('phoneRegisterBtn').addEventListener('click', () => signInWithPhone(true));
             document.getElementById('googleLoginBtn').addEventListener('click', signInWithGoogle);
-            document.getElementById('registerBtn').addEventListener('click', signUpWithEmail);
             document.getElementById('googleRegisterBtn').addEventListener('click', signInWithGoogle);
+            document.getElementById('registerBtn').addEventListener('click', signUpWithEmail);
             document.getElementById('verifyOtpBtn').addEventListener('click', verifyOtp);
             document.getElementById('resendOtpBtn').addEventListener('click', () => signInWithPhone(false));
             document.getElementById('showRegister').addEventListener('click', showRegisterForm);

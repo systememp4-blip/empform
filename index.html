@@ -2239,7 +2239,7 @@
                 });
             }
             
-            // Show section based on currentSection
+            // Show section based on currentSection with scroll to top
             function showSection(sectionNumber) {
                 sections.forEach(section => {
                     section.classList.remove('active');
@@ -2247,6 +2247,9 @@
                 document.getElementById(`section${sectionNumber}`).classList.add('active');
                 currentSection = sectionNumber;
                 updateProgressBar();
+                
+                // Scroll to top of the form container
+                document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth' });
                 
                 // Auto-save form data when navigating
                 saveFormData();

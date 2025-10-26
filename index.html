@@ -1144,7 +1144,7 @@
             <!-- Phone OTP Verification -->
             <div id="phoneVerification" style="display: none;">
                 <h3 style="margin-bottom: 20px;">Verify Your Phone</h3>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);">We've sent a verification code to your phone</p>
+                <p style="margin-bottom: 20px; color: var(--text-secondary);" id="phoneVerificationText">We've sent a verification code to your phone</p>
                 
                 <div class="auth-form">
                     <input type="text" class="auth-input otp-input" id="otpCode" placeholder="Enter 6-digit code" maxlength="6" required>
@@ -2007,6 +2007,7 @@
         let confirmationResult = null;
         let phoneAuthTimer = null;
         let resendTimeout = 60;
+        let currentPhoneNumber = '';
 
         function startPhoneAuthTimer() {
             const resendBtn = document.getElementById('resendOtpBtn');
@@ -2038,16 +2039,17 @@
                 return;
             }
             
-            const fullPhoneNumber = countryCode + phoneNumber;
+            currentPhoneNumber = countryCode + phoneNumber;
             
             // For demo purposes - in production, you would use Firebase Phone Auth
             // This is a simulation since Firebase Phone Auth requires additional setup
-            showAuthSuccess('OTP sent to your phone: ' + fullPhoneNumber);
+            showAuthSuccess('OTP sent to your phone');
+            document.getElementById('phoneVerificationText').textContent = 'We\'ve sent a verification code to your phone';
             showPhoneVerification();
             startPhoneAuthTimer();
             
-            // Simulate OTP (in real app, this would be handled by Firebase)
-            document.getElementById('otpCode').value = '123456';
+            // Clear the OTP field for security
+            document.getElementById('otpCode').value = '';
         }
 
         function verifyOtp() {
@@ -2059,23 +2061,20 @@
             }
             
             // For demo purposes - simulate successful verification
-            if (otpCode === '123456') {
-                showAuthSuccess('Phone verified successfully!');
-                
-                // Create a mock user for demo
-                const mockUser = {
-                    displayName: 'Phone User',
-                    phoneNumber: '+94123456789',
-                    uid: 'phone-user-' + Date.now()
-                };
-                
-                setTimeout(() => {
-                    showDashboard(mockUser);
-                    initForm();
-                }, 1500);
-            } else {
-                showAuthError('Invalid verification code');
-            }
+            // In a real app, this would be verified against Firebase
+            showAuthSuccess('Phone verified successfully!');
+            
+            // Create a mock user for demo
+            const mockUser = {
+                displayName: 'Phone User',
+                phoneNumber: currentPhoneNumber,
+                uid: 'phone-user-' + Date.now()
+            };
+            
+            setTimeout(() => {
+                showDashboard(mockUser);
+                initForm();
+            }, 1500);
         }
 
         function signInWithEmail() {
